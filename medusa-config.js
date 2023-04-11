@@ -43,10 +43,19 @@ const plugins = [
       autoRebuild: true,
     },
   },
+  {
+    resolve: `medusa-file-minio`,
+    options: {
+      endpoint: process.env.MINIO_ENDPOINT,
+      bucket: process.env.MINIO_BUCKET,
+      access_key_id: process.env.MINIO_ACCESS_KEY,
+      secret_access_key: process.env.MINIO_SECRET_KEY,
+    },
+  }
 ];
 
 const modules = {
-  /*eventBus: {
+  eventBus: {
     resolve: "@medusajs/event-bus-redis",
     options: {
       redisUrl: REDIS_URL
@@ -57,7 +66,7 @@ const modules = {
     options: {
       redisUrl: REDIS_URL
     }
-  },*/
+  },
 }
 
 /** @type {import('@medusajs/medusa').ConfigModule["projectConfig"]} */
@@ -68,8 +77,7 @@ const projectConfig = {
   database_type: DATABASE_TYPE,
   store_cors: STORE_CORS,
   admin_cors: ADMIN_CORS,
-  // Uncomment the following lines to enable REDIS
-  // redis_url = REDIS_URL
+  redis_url: REDIS_URL
 }
 
 if (DATABASE_URL && DATABASE_TYPE === "postgres") {
